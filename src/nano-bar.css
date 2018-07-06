@@ -1,0 +1,17 @@
+.nanobar {
+    --nano-height: 1em;
+    --nano-position: fixed;
+    z-index: 9999;
+    height: var(--nano-height);
+    width: 100%;
+    transition: height .3s ease-out;
+    position: var(--nano-position);
+}
+
+.nanobar__progress {
+    --nano-progress: 0;
+    --nano-background-color: #33C3F0;
+    width: var(--nano-progress);
+    transition: width .3s ease-out;
+    background-color: var(--nano-background-color);
+}
