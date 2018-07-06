@@ -1,5 +1,5 @@
-import { FrameworkConfiguration } from 'aurelia-framework';
+import { FrameworkConfiguration, PLATFORM } from 'aurelia-framework';
 
 export function configure(aurelia: FrameworkConfiguration) {
-    aurelia.globalResources([]);
+    aurelia.globalResources([PLATFORM.moduleName('./nano-bar')]);
 }
