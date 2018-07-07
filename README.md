@@ -2,6 +2,10 @@
 
 A nanoloading plugin for Aurelia
 
+## Demo
+
+View a [sample project here](https://github.com/fedoranimus/aurelia-nano-bar-samples).
+
 ## Installation
 
 Install via npm
