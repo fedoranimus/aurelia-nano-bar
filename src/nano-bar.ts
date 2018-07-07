@@ -37,7 +37,7 @@ export class NanoBar {
         this.setProperty(CSSVariables.progressWidth, newProgress);
     }
 
-    private complete() {
+    private complete() { // TODO: Add a timeout
         this.progress = 100;
         this.setProperty(CSSVariables.barHeight, 0);
     }
