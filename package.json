@@ -1,6 +1,6 @@
 {
   "name": "aurelia-nano-bar",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A nanoloading bar for Aurelia",
   "main": "dist/commonjs/index.js",
   "scripts": {
