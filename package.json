@@ -16,7 +16,7 @@
     "postbuild": "gulp",
     "build": "npm-run-all build:amd build:commonjs build:es2015 build:native-modules build:system",
     "prepare-release": "cross-env npm run build && semantic-release pre && npm publish && semantic-release post",
-    "travis-deploy-once": "travis-deploy-once",
+    "travis-deploy-once": "travis-deploy-once --pro",
     "semantic-release": "semantic-release"
   },
   "repository": {
