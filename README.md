@@ -35,4 +35,6 @@ Custom Progress, autoincrement will be disabled
 
 ## Development & Testing
 
-`// TODO`
+Simply run
+
+`npm run test`
