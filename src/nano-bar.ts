@@ -1,76 +1,107 @@
 import { bindable, autoinject } from 'aurelia-framework';
 
 @autoinject
-export class NanoBar {
-    @bindable({ primaryProperty: true }) show: boolean = false;
-    @bindable progress: number | undefined = undefined;
+export class NanoBarCustomElement {
+    @bindable isLoading: boolean = false;
+    @bindable progress: number | null = null;
+
+    // Internal
+    _progress: number = 0;
+    _position: string = 'fixed';
+    _height: number = 2;
+    _transitionFunction: string = Transition.instant;
 
     private incTimer: NodeJS.Timer;
 
-    constructor(private element: HTMLDivElement) {
+    constructor(private element: Element) {
+    }
+
+    bind() {
+        if (typeof this.isLoading !== 'boolean') throw new Error('is-loading is not bound properly to a boolean value; did you forget to call .bind?');
+        if ((this.progress !== null) && (typeof this.progress !== 'number')) throw new Error('progress is not bound properly to a number or null; did you forget to call .bind?');     
+    }
+
+    async attached() {
         this.intializePosition();
+        if (this.isLoading)
+            this.start();
     }
 
     private intializePosition() {
-        if (this.element.nodeName.toLowerCase() !== 'body') {
-            this.setProperty(CSSVariables.position, 'relative');
+        if (this.element.parentElement && this.element.parentElement.nodeName.toLowerCase() !== 'body') {
+            this._position = 'relative';
         }
     }
 
     // Show bindable has changed
-    showChanged(isShown: boolean) {
+    isLoadingChanged(isShown: boolean, wasShown: boolean) {
         if (isShown) {
-            if (this.progress === undefined)
-                this.progress = 10;
-            
-            this.incTimer = setInterval(this.autoincrement, 300);
+            if (this._progress === 100) this._progress = 0; // Reset the progress
+            this.start();
         }
 
-        if (!isShown) {
-            clearInterval(this.incTimer);
+        if (wasShown && !isShown) {
             this.complete();
         }
     }
 
     // Progress bindable has changed
     progressChanged(newProgress: number) {
-        this.setProperty(CSSVariables.progressWidth, newProgress);
+        if (typeof newProgress === 'number') {
+            clearInterval(this.incTimer);
+            this._progress = newProgress;
+        } else {
+            this._progress = 0;
+        }
     }
 
-    private complete() { // TODO: Add a timeout
-        this.progress = 100;
-        this.setProperty(CSSVariables.barHeight, 0);
+    private start() {
+        this._height = 2;
+        setTimeout(() => {
+            this._transitionFunction = Transition.ease;
+
+            if (this.progress === null)
+                this._progress = 5;
+
+            this.incTimer = setInterval(() => this.autoincrement(), 500);
+        }, 100);
+    }
+
+    private complete() {
+        if (this.incTimer) clearInterval(this.incTimer);
+        this._progress = 100;
+        setTimeout(() => {
+            this._height = 0;
+            setTimeout(() => {
+                this._transitionFunction = Transition.instant;
+                this._progress = 0;
+            }, 300);
+        }, 300);
+
+        
     }
     
     private autoincrement() {
-        // Don't increment if the progress is manually set, or it's gone over 90%
-        if (this.progress === undefined || this.progress > 90)
+        // Don't increment if the progress has gone over 90%
+        if (this._progress > 90)
             return;
 
-        // increment by a random integer value between 2% and 10%
-        this.progress = this.progress + this.randomIntRange(2, 10);
-    }
-
-    private setProperty(propertyName: string, value: number|string) {
-        if (typeof value === 'number')
-            value = value.toString();
-
-        switch (propertyName) {
-            case CSSVariables.progressWidth:
-                value = value + '%';
-                break;
-        }
-
-        this.element.style.setProperty(propertyName, value);
+        // increment by a random integer value between 1% and 10%
+        this._progress = this._progress + this.randomIntRange(1, 10);
     }
 
     private randomIntRange(min: number, max: number) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
+
+    detached() {
+        if (this.incTimer) clearInterval(this.incTimer);
+    }
 }
 
-enum CSSVariables {
-    barHeight = '--nano-height',
-    progressWidth = '--nano-progress',
-    position = '--nano-position'
+enum Transition {
+    instant = 'all 0ms linear',
+    ease = 'all 200ms ease'
 }
+
+//TODO: Clean up start transition
