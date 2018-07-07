@@ -1,6 +1,6 @@
 {
   "name": "aurelia-nano-bar",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "A nanoloading bar for Aurelia",
   "main": "dist/commonjs/index.js",
   "scripts": {
@@ -15,11 +15,13 @@
     "prebuild": "cross-env rimraf dist",
     "postbuild": "gulp",
     "build": "npm-run-all build:amd build:commonjs build:es2015 build:native-modules build:system",
-    "prepare-release": "cross-env npm run build && semantic-release pre && npm publish && semantic-release post"
+    "prepare-release": "cross-env npm run build && semantic-release pre && npm publish && semantic-release post",
+    "travis-deploy-once": "travis-deploy-once",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fedoranimus/aurelia-nano-bar.git"
+    "url": "https://github.com/fedoranimus/aurelia-nano-bar.git"
   },
   "keywords": [
     "aurelia",
@@ -89,7 +91,8 @@
     "semantic-release": "^15.6.3",
     "ts-jest": "^23.0.0",
     "tslint": "^5.10.0",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "travis-deploy-once": "^5.0.1"
   },
   "dependencies": {
     "aurelia-framework": "^1.3.0"
