@@ -71,8 +71,7 @@
       "lcov",
       "text",
       "html"
-    ],
-    "mapCoverage": true
+    ]
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
