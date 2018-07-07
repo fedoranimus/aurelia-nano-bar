@@ -15,7 +15,7 @@
     "prebuild": "cross-env rimraf dist",
     "postbuild": "gulp",
     "build": "npm-run-all build:amd build:commonjs build:es2015 build:native-modules build:system",
-    "prepare-release": "cross-env npm run build && semantic-release pre && npm publish && semantic-release post",
+    "prepare-release": "cross-env npm run build && semantic-release",
     "travis-deploy-once": "travis-deploy-once --pro",
     "semantic-release": "semantic-release"
   },
