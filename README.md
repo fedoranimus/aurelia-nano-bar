@@ -31,11 +31,11 @@ Simply use the `nano-bar` custom attribute
 
 Simple usage, the progress bar will autoincrement as time goes on
 
-`<div nano-bar.bind="isShown">`
+`<nano-bar is-loading.bind="isLoading"></nano-bar>`
 
 Custom Progress, autoincrement will be disabled
 
-`<div nano-bar="show.bind: isShown; progress.bind: loadingProgress"></div>`
+`<nano-bar is-loading.bind="isLoading" progress.bind="progress"></nano-bar>`
 
 ## Development & Testing
 
