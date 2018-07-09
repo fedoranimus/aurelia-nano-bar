@@ -1,11 +1,17 @@
 .nanobar {
     width: 100%;
-    background-color: #33C3F0;
+    overflow: hidden;
     z-index: 1001;
     height: 2px;
     position: fixed;
     top: 0;
     left: 0;
+}
+
+.nanobar__progress {
+    width: 100%;
+    height: 100%;
+    background-color: #33C3F0;
 }
 
 .nanobar__tip {

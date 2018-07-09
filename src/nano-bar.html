@@ -1,7 +1,9 @@
 <template>
     <require from="./nano-bar.css"></require>
-    <div class="nanobar" role="progressbar" 
-        css="transform: translate3d(-${100 - _progress}%, 0, 0); height: ${_height}px; position: ${_position}; transition: ${_transitionFunction};">
-        <div class="nanobar__tip"></div>
+    <div class="nanobar" css="position: ${_position};">
+        <div class="nanobar__progress" role="progressbar" 
+            css="transform: translate3d(-${100 - _progress}%, 0, 0); height: ${_height}px; transition: ${_transitionFunction};">
+            <div class="nanobar__tip"></div>
+        </div>
     </div>
 </template>
